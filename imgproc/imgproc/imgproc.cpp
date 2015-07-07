@@ -5,7 +5,8 @@ imgproc::imgproc(QWidget *parent, Qt::WFlags flags)
 	: QMainWindow(parent, flags)
 {
 	ui.setupUi(this);
-	imgproc::connect()
+	connect(ui.OKButton,SIGNAL(clicked()),this,SLOT(accept()));
+	connect(ui.OKButton,SIGNAL(clicked()),ui.dstImageView,SLOT(imageShow()));
 }
 
 imgproc::~imgproc()
@@ -13,13 +14,8 @@ imgproc::~imgproc()
 
 }
 
-void imgshow()
+void imgproc::on_imageLabel_imageShow()
 {
-	cv::Mat src = cv::imread("../../data_and_commonh/2.jpg");
-	cv::imshow("sourceimg", src);
-}
+	cv::Mat src = cv::imread("C:/Users/CGGI_006/Desktop/LXD/data/2.jpg");
 
-void on_OKButton_clicked()
-{
-	
 }

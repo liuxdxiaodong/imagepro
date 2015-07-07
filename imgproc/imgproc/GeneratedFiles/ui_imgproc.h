@@ -13,11 +13,14 @@
 #include <QtGui/QAction>
 #include <QtGui/QApplication>
 #include <QtGui/QButtonGroup>
+#include <QtGui/QHBoxLayout>
 #include <QtGui/QHeaderView>
+#include <QtGui/QLabel>
+#include <QtGui/QListView>
 #include <QtGui/QMainWindow>
 #include <QtGui/QMenuBar>
-#include <QtGui/QPlainTextEdit>
 #include <QtGui/QPushButton>
+#include <QtGui/QSpacerItem>
 #include <QtGui/QStatusBar>
 #include <QtGui/QToolBar>
 #include <QtGui/QWidget>
@@ -28,8 +31,13 @@ class Ui_imgprocClass
 {
 public:
     QWidget *centralWidget;
-    QPlainTextEdit *plainTextEdit;
-    QPushButton *OKButton;
+    QLabel *imageLabel;
+    QWidget *layoutWidget;
+    QHBoxLayout *horizontalLayout;
+    QSpacerItem *horizontalSpacer;
+    QPushButton *okButton;
+    QPushButton *cancelButton;
+    QListView *dstImageView;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -38,19 +46,41 @@ public:
     {
         if (imgprocClass->objectName().isEmpty())
             imgprocClass->setObjectName(QString::fromUtf8("imgprocClass"));
-        imgprocClass->resize(600, 400);
+        imgprocClass->resize(530, 298);
         centralWidget = new QWidget(imgprocClass);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
-        plainTextEdit = new QPlainTextEdit(centralWidget);
-        plainTextEdit->setObjectName(QString::fromUtf8("plainTextEdit"));
-        plainTextEdit->setGeometry(QRect(23, 20, 301, 251));
-        OKButton = new QPushButton(centralWidget);
-        OKButton->setObjectName(QString::fromUtf8("OKButton"));
-        OKButton->setGeometry(QRect(440, 150, 75, 23));
+        imageLabel = new QLabel(centralWidget);
+        imageLabel->setObjectName(QString::fromUtf8("imageLabel"));
+        imageLabel->setGeometry(QRect(9, 9, 241, 181));
+        layoutWidget = new QWidget(centralWidget);
+        layoutWidget->setObjectName(QString::fromUtf8("layoutWidget"));
+        layoutWidget->setGeometry(QRect(9, 207, 512, 25));
+        horizontalLayout = new QHBoxLayout(layoutWidget);
+        horizontalLayout->setSpacing(6);
+        horizontalLayout->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
+        horizontalLayout->setContentsMargins(0, 0, 0, 0);
+        horizontalSpacer = new QSpacerItem(348, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout->addItem(horizontalSpacer);
+
+        okButton = new QPushButton(layoutWidget);
+        okButton->setObjectName(QString::fromUtf8("okButton"));
+
+        horizontalLayout->addWidget(okButton);
+
+        cancelButton = new QPushButton(layoutWidget);
+        cancelButton->setObjectName(QString::fromUtf8("cancelButton"));
+
+        horizontalLayout->addWidget(cancelButton);
+
+        dstImageView = new QListView(centralWidget);
+        dstImageView->setObjectName(QString::fromUtf8("dstImageView"));
+        dstImageView->setGeometry(QRect(260, 0, 256, 192));
         imgprocClass->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(imgprocClass);
         menuBar->setObjectName(QString::fromUtf8("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 600, 23));
+        menuBar->setGeometry(QRect(0, 0, 530, 23));
         imgprocClass->setMenuBar(menuBar);
         mainToolBar = new QToolBar(imgprocClass);
         mainToolBar->setObjectName(QString::fromUtf8("mainToolBar"));
@@ -60,7 +90,6 @@ public:
         imgprocClass->setStatusBar(statusBar);
 
         retranslateUi(imgprocClass);
-        QObject::connect(OKButton, SIGNAL(clicked()), imgprocClass, SLOT(showFullScreen()));
 
         QMetaObject::connectSlotsByName(imgprocClass);
     } // setupUi
@@ -68,7 +97,9 @@ public:
     void retranslateUi(QMainWindow *imgprocClass)
     {
         imgprocClass->setWindowTitle(QApplication::translate("imgprocClass", "imgproc", 0, QApplication::UnicodeUTF8));
-        OKButton->setText(QApplication::translate("imgprocClass", "OK", 0, QApplication::UnicodeUTF8));
+        imageLabel->setText(QString());
+        okButton->setText(QApplication::translate("imgprocClass", "OK", 0, QApplication::UnicodeUTF8));
+        cancelButton->setText(QApplication::translate("imgprocClass", "Cancel", 0, QApplication::UnicodeUTF8));
     } // retranslateUi
 
 };

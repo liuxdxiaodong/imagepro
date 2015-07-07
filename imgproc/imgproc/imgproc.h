@@ -15,7 +15,7 @@ public:
 private:
 	Ui::imgprocClass ui;
 private slots:
-	void on_OKButton_clicked();
+	void on_imageLabel_imageShow(); 
 };
 
 #endif // IMGPROC_H
